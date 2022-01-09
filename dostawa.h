@@ -27,7 +27,7 @@ dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
     plikOdczyt.open(plik, ios::in| ios::app);
     cout<<setprecision(2);
     cout<<fixed;
-    wypiszTowary(tab_art, *n_art);
+    //wypiszTowary(tab_art, *n_art);
     if (plikOdczyt.good())
     {
         getline(plikOdczyt, przyjetaDostawa.nrPZ);
@@ -44,7 +44,7 @@ dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
 			string ilosc, cena;
 
                 getline( ss, art.nazwa, ',' );
-                cout<<art.nazwa;
+                //cout<<art.nazwa;
                 getline( ss, art.kategoria, ',' );
                 getline( ss, ilosc, ',' );
                 getline( ss, cena, ',' );

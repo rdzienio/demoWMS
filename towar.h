@@ -26,6 +26,7 @@ void zapiszTowary(artykul *tab, int n, string plik){
     ofstream plikZapis;
     plikZapis.open(plik);
     for(int i=0; i<n; i++){
+            if(tab[i].nazwa.empty()) break;
         plikZapis<<tab[i].nazwa<<", "<<tab[i].kategoria<<", "<<tab[i].ilosc<<", "<<tab[i].cena<<"\n";
     }
     logInfo("zapisano plik: " + plik);
