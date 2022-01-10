@@ -38,12 +38,26 @@ void wczytajListeDostaw(dostawa *tab_dst, int *n){
 }
 
 void zapiszDostawe(dostawa nowaDostawa, dostawa *tab_dst, int *n){
+    wczytajListeDostaw(tab_dst, n);
+    bool flaga=false;
+                    logInfo("please! "+*n);
+    for(int i=0; i<*n; i++){
+        if(nowaDostawa.nrPZ.compare(tab_dst[i].nrPZ)==0)
+            {
+                flaga=true;
+                logInfo("oh noooo! "+*n);
+                break;
+                }
+    }
+    if(flaga!=true){
     ofstream plikZapis;
     plikZapis.open("dostawy.bin", ios::binary | ios::out| ios::app);
     plikZapis.write(reinterpret_cast<char*>(&nowaDostawa), sizeof(nowaDostawa));
     logInfo("zapisano dostawe: " + nowaDostawa.nrPZ);
-    *n=1;
     plikZapis.close();
+    }
+    else
+        logInfo("dostawa [" +nowaDostawa.nrPZ+ "] juz byla wprowadzona!");
 }
 
 dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik){

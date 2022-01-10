@@ -10,7 +10,7 @@ int main(){
     dostawa *listaDostaw= new dostawa[n_dst];
     wybierzMenu(lista, n, listaDostaw, &n_dst);
     n_dst=50;
-    delete lista;
-    delete listaDostaw;
 
+    delete listaDostaw;
+    delete lista;
 }
