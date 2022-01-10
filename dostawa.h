@@ -18,6 +18,16 @@ struct dostawa{
 
 void wyswietlPZ(dostawa PZ);
 dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik); //wczytuje plik z dostawa i dodaje ja na stan
+void zapiszDostawe(dostawa nowaDostawa, dostawa *tab_dst, int n);
+
+
+void zapiszDostawe(dostawa nowaDostawa, dostawa *tab_dst, int n){
+    ofstream plikZapis;
+    plikZapis.open("dostawy.bin", ios::binary | ios::out| ios::app);
+    plikZapis.write(reinterpret_cast<char*>(&nowaDostawa), sizeof(nowaDostawa));
+    logInfo("zapisano dostawe: " + nowaDostawa.nrPZ);
+    plikZapis.close();
+}
 
 dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
     wczytajTowary(tab_art, n_art, "data.bin");

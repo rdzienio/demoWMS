@@ -11,14 +11,14 @@ void printMenu();
 void clearScreen();
 int wybierzMenu(artykul *tab, int n, dostawa *tab_dst, int n_dst);
 void menuTowary(artykul *tab, int n);
-void menuDostawy(artykul *tab_art, int n_art);
+void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int n_dst);
 
-void menuDostawy(artykul *tab_art, int n_art){
+void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int n_dst){
     int wybor;
     dostawa testDostawy;
     clearScreen();
     while(true){
-            cout<<"Dostawy | ";
+        cout<<"Dostawy | ";
         printHello();
         cout<<"1) Wyswietl dostawe."<<endl;
         cout<<"2) Przyjmij nowa dostawe."<<endl;
@@ -37,6 +37,7 @@ void menuDostawy(artykul *tab_art, int n_art){
             cout<<"Podaj nazwe pliku do wczytania: ";
             cin>>plik;
             testDostawy=przyjmijDostawe(tab_art, &n_art, plik);
+            zapiszDostawe(testDostawy, tab_dst, n_dst);
             system("pause");
             clearScreen();
             break;
@@ -132,7 +133,7 @@ int wybierzMenu(artykul *tab, int n,  dostawa *tab_dst, int n_dst){
                 menuTowary(tab, n);
                 break;}
             case 2:
-                menuDostawy(tab, n);
+                menuDostawy(tab, n, tab_dst, n_dst);
                 break;
             case 3:
                 cout<<"Brak wysylek"<<endl;
