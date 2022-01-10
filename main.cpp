@@ -8,6 +8,6 @@ int main(){
     int n_dst=50;
     artykul *lista=new artykul[n];
     dostawa *listaDostaw= new dostawa[n_dst];
-    wybierzMenu(lista, n);
+    wybierzMenu(lista, n, listaDostaw, n_dst);
 
 }

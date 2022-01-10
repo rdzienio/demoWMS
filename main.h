@@ -9,7 +9,7 @@ using namespace std;
 void printHello();
 void printMenu();
 void clearScreen();
-int wybierzMenu(artykul *tab, int n);
+int wybierzMenu(artykul *tab, int n, dostawa *tab_dst, int n_dst);
 void menuTowary(artykul *tab, int n);
 void menuDostawy(artykul *tab_art, int n_art);
 
@@ -121,7 +121,7 @@ void menuTowary(artykul *tab, int n){
     }
 }
 
-int wybierzMenu(artykul *tab, int n){
+int wybierzMenu(artykul *tab, int n,  dostawa *tab_dst, int n_dst){
     int wybor;
     while(true){
         printMenu();
