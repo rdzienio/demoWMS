@@ -26,13 +26,14 @@ void wczytajListeDostaw(dostawa *tab_dst, int *n){
     ifstream plikOdczyt;
     plikOdczyt.open("dostawy.bin", ios::binary | ios::in);
     if(plikOdczyt.good()==true){
-            logInfo("wczytano dostawy");
-    int i;
-    for(i=0; ;i++){
-        plikOdczyt.read(reinterpret_cast<char*>(&tab_dst[i]),sizeof(tab_dst));
-        if(plikOdczyt.eof()) break;
-    }
-    *n=i;
+        logInfo("wczytano dostawy");
+        int i;
+        for(i=0; ;i++){
+            plikOdczyt.read(reinterpret_cast<char*>(&tab_dst[i]),sizeof(tab_dst));
+            if(plikOdczyt.eof()) break;
+        }
+        logInfo("i: " + i);
+        *n=i;
     }
     plikOdczyt.close();
 }
@@ -40,8 +41,10 @@ void wczytajListeDostaw(dostawa *tab_dst, int *n){
 void zapiszDostawe(dostawa nowaDostawa, dostawa *tab_dst, int *n){
     wczytajListeDostaw(tab_dst, n);
     bool flaga=false;
+    cout<<"*n: "<<*n<<endl;
                     logInfo("please! "+*n);
     for(int i=0; i<*n; i++){
+            logInfo(tab_dst[i].nrPZ);
         if(nowaDostawa.nrPZ.compare(tab_dst[i].nrPZ)==0)
             {
                 flaga=true;
