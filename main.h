@@ -67,6 +67,8 @@ void menuTowary(artykul *tab, int n){
         cin>>wybor;
         switch(wybor){
         case 1:
+            clearScreen();
+            wczytajTowary(tab, &n, "data.bin");
             wypiszTowary(tab, n);
             system("pause");
             clearScreen();
