@@ -26,7 +26,8 @@ void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
         cin>>wybor;
         switch(wybor){
         case 1:
-            wyswietlPZ(testDostawy);
+            wyswietlListePrzyjetychDostaw();
+            //wyswietlPZ(testDostawy);
             //wypiszTowary(tab_art, n_art);
             system("pause");
             clearScreen();

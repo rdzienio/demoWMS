@@ -20,6 +20,41 @@ void wyswietlPZ(dostawa PZ);
 dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik); //wczytuje plik z dostawa i dodaje ja na stan
 void zapiszDostawe(dostawa nowaDostawa, dostawa *tab_dst, int *n);
 void wczytajListeDostaw(dostawa *tab_dst, int *n);
+void wyswietlListePrzyjetychDostaw();
+
+void wyswietlListePrzyjetychDostaw(){
+    ifstream plikOdczyt;
+    dostawa d[10];
+    dostawa tmp;
+    int n;
+    bool flaga=false;
+    plikOdczyt.open("dostawy.bin", ios::binary | ios::in);
+    if(plikOdczyt.good()==true){
+        logInfo("wczytano dostawy");
+        int i;
+        for(i=0; ;i++){
+            plikOdczyt.read(reinterpret_cast<char*>(&d[i]),sizeof(d[i]));
+            if(plikOdczyt.eof()) break;
+        }
+        n=i;
+    }
+    plikOdczyt.close();
+    cout<<0<<") Nr PZ: "<<d[0].nrPZ<<endl;
+    for(int j=1; j<n; j++){
+        flaga=false;
+        for(int k=0; k<j; k++){
+            if(j!=k && strcmp(d[j].nrPZ, d[k].nrPZ)==0)
+            {
+                flaga=true;
+                break;
+            }
+        }
+        if(flaga==true)
+            cout<<j<<") Nr PZ: "<<"d00p[a"<<endl;
+        else
+            cout<<j<<") Nr PZ: "<<d[j].nrPZ<<endl;
+    }
+}
 
 
 void wczytajListeDostaw(dostawa *tab_dst, int *n){
@@ -32,7 +67,7 @@ void wczytajListeDostaw(dostawa *tab_dst, int *n){
             plikOdczyt.read(reinterpret_cast<char*>(&tab_dst[i]),sizeof(tab_dst));
             if(plikOdczyt.eof()) break;
         }
-        logInfo("i: " + i);
+        //logInfo("i: " + i);
         *n=i;
     }
     plikOdczyt.close();
@@ -41,30 +76,26 @@ void wczytajListeDostaw(dostawa *tab_dst, int *n){
 void zapiszDostawe(dostawa nowaDostawa, dostawa *tab_dst, int *n){
     wczytajListeDostaw(tab_dst, n);
     bool flaga=false;
-    cout<<"*n: "<<*n<<endl;
-                    logInfo("please! "+*n);
     for(int i=0; i<*n; i++){
-            logInfo(tab_dst[i].nrPZ);
         if(strcmp(nowaDostawa.nrPZ, tab_dst[i].nrPZ)==0)
             {
                 flaga=true;
-                logInfo("oh noooo! "+*n);
                 break;
-                }
+            }
     }
     if(flaga!=true){
-    ofstream plikZapis;
-    plikZapis.open("dostawy.bin", ios::binary | ios::out| ios::app);
-    plikZapis.write(reinterpret_cast<char*>(&nowaDostawa), sizeof(nowaDostawa));
-    string nrPZ=nowaDostawa.nrPZ;
-    logInfo("zapisano dostawe: " + nrPZ);
-    plikZapis.close();
+        ofstream plikZapis;
+        plikZapis.open("dostawy.bin", ios::binary | ios::out| ios::app);
+        plikZapis.write(reinterpret_cast<char*>(&nowaDostawa), sizeof(nowaDostawa));
+        string nrPZ=nowaDostawa.nrPZ;
+        logInfo("zapisano dostawe: " + nrPZ);
+        plikZapis.close();
     }
     else
-        {
-            string nrPZ=nowaDostawa.nrPZ;
-            logInfo("dostawa [" + nrPZ + "] juz byla wprowadzona!");
-            }
+    {
+        string nrPZ=nowaDostawa.nrPZ;
+        logInfo("dostawa [" + nrPZ + "] juz byla wprowadzona!");
+    }
 }
 
 dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
@@ -114,11 +145,11 @@ dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
 
 void wyswietlPZ(dostawa PZ){
     string nrPZ=PZ.nrPZ;
-    if(nrPZ.empty()){
+    if(nrPZ.empty() || PZ.ilosc<1){
     cout<<"Nie bylo jeszcze dostawy!"<<endl;
     return;
     }
-    cout<<"Dokument PZ: "<<PZ.nrPZ<<endl;
+    cout<<"Dokument PZ: "<<PZ.nrPZ<<"\t"<<PZ.ilosc<<"\t"<<PZ.listaArt[0].nazwa<<endl;
     wypiszTowary(PZ.listaArt, PZ.ilosc);
 }
 
