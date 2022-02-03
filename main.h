@@ -89,7 +89,9 @@ void menuTowary(artykul *tab, int n){
                 //cin.ignore(std::numeric_limits<std::streamsize>::max());
                 getchar();
                 cout<<"Podaj nazwe towaru: ";
-                getline(cin, test.nazwa);
+                string nazwa;
+                getline(cin, nazwa);
+                strcpy(test.nazwa, nazwa.c_str());
                 cout<<"Podaj kategorie: ";
                 cin>>test.kategoria;
                 cout<<"Podaj cene: ";

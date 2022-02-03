@@ -11,10 +11,11 @@
 using namespace std;
 
 struct artykul{
-    string nazwa;
-    string kategoria;
+    char nazwa[30];
+    char kategoria[20];
     int ilosc;
     float cena;
+    char miejsce[10];
     };
 
 void wczytajTowary(artykul *tab, int *n, string plik);
@@ -26,7 +27,7 @@ void zapiszTowary(artykul *tab, int n, string plik){
     ofstream plikZapis;
     plikZapis.open(plik);
     for(int i=0; i<n; i++){
-            if(tab[i].nazwa.empty()) break;
+            if(strlen(tab[i].nazwa)==0) break;
         plikZapis<<tab[i].nazwa<<","<<tab[i].kategoria<<","<<tab[i].ilosc<<","<<tab[i].cena<<"\n";
     }
     logInfo("zapisano plik: " + plik);
@@ -34,12 +35,13 @@ void zapiszTowary(artykul *tab, int n, string plik){
 }
 
 int dodajTowar(artykul *tab, int *n, artykul nowy){
-    logInfo("dodano towar: " + nowy.nazwa);
+    string nazwa=nowy.nazwa;
+    logInfo("dodano towar: " + nazwa);
     bool flaga=false;
     //cout<<*n<<endl;
     for(int i=0; i<*n; i++){
             //cout<<"probuje dodac "<<nowy.nazwa<<" porownuje z "<<tab[i].nazwa<<endl;
-        if(!tab[i].nazwa.compare(nowy.nazwa)){
+        if(strcmp(tab[i].nazwa,nowy.nazwa)!=0){
             tab[i].cena=nowy.cena;
             tab[i].ilosc+=nowy.ilosc;
             flaga=true;
@@ -60,7 +62,7 @@ void wypiszTowary(artykul *tab, int n){
     cout<<fixed;
     cout<<"L.p."<<"\t"<<"Nazwa"<<"\t"<<"Kategoria"<<"\t"<<"Ilosc"<<"\t"<<"Cena"<<endl;
     for(int i=0;i<n;i++)
-        {   if(tab[i].nazwa.empty()) break;
+        {   if(strlen(tab[i].nazwa)==0) break;
             cout<<i<<"\t"<<tab[i].nazwa<<"\t"<<tab[i].kategoria<<"\t"<<tab[i].ilosc<<"\t"<<tab[i].cena<<endl;}
     cout<<endl;
 }
@@ -79,12 +81,14 @@ void wczytajTowary(artykul *tab, int *n, string plik){
         {
 			if(!getline(plikOdczyt, liniaTekstu)) break;
 			istringstream ss( liniaTekstu );
-			string ilosc, cena;
+			string ilosc, cena, nazwa, kategoria;
 
-                getline( ss, tab[i].nazwa, ',' );
-                getline( ss, tab[i].kategoria, ',' );
+                getline( ss, nazwa, ',' );
+                getline( ss, kategoria, ',' );
                 getline( ss, ilosc, ',' );
                 getline( ss, cena, ',' );
+                strcpy(tab[i].nazwa, nazwa.c_str());
+                strcpy(tab[i].kategoria, kategoria.c_str());
                 tab[i].ilosc=stoi(ilosc);
                 tab[i].cena=stod(cena);
             if (plikOdczyt.eof()) break;

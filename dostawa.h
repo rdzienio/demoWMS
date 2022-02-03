@@ -85,13 +85,14 @@ dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
             artykul art;
             if(!getline(plikOdczyt, liniaTekstu)) break;
 			istringstream ss( liniaTekstu );
-			string ilosc, cena;
+			string ilosc, cena, nazwa, kategoria;
 
-                getline( ss, art.nazwa, ',' );
-                //cout<<art.nazwa;
-                getline( ss, art.kategoria, ',' );
+                getline( ss, nazwa, ',' );
+                getline( ss, kategoria, ',' );
                 getline( ss, ilosc, ',' );
                 getline( ss, cena, ',' );
+                strcpy(art.nazwa, nazwa.c_str());
+                strcpy(art.kategoria, kategoria.c_str());
                 art.ilosc=stoi(ilosc);
                 art.cena=stod(cena);
                 dodajTowar(tab_art, n_art, art);
