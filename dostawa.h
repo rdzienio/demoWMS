@@ -11,7 +11,7 @@ using namespace std;
 
 
 struct dostawa{
-    string nrPZ;
+    char nrPZ[10];
     artykul *listaArt;
     int ilosc;
     };
@@ -45,7 +45,7 @@ void zapiszDostawe(dostawa nowaDostawa, dostawa *tab_dst, int *n){
                     logInfo("please! "+*n);
     for(int i=0; i<*n; i++){
             logInfo(tab_dst[i].nrPZ);
-        if(nowaDostawa.nrPZ.compare(tab_dst[i].nrPZ)==0)
+        if(strcmp(nowaDostawa.nrPZ, tab_dst[i].nrPZ)==0)
             {
                 flaga=true;
                 logInfo("oh noooo! "+*n);
@@ -56,11 +56,15 @@ void zapiszDostawe(dostawa nowaDostawa, dostawa *tab_dst, int *n){
     ofstream plikZapis;
     plikZapis.open("dostawy.bin", ios::binary | ios::out| ios::app);
     plikZapis.write(reinterpret_cast<char*>(&nowaDostawa), sizeof(nowaDostawa));
-    logInfo("zapisano dostawe: " + nowaDostawa.nrPZ);
+    string nrPZ=nowaDostawa.nrPZ;
+    logInfo("zapisano dostawe: " + nrPZ);
     plikZapis.close();
     }
     else
-        logInfo("dostawa [" +nowaDostawa.nrPZ+ "] juz byla wprowadzona!");
+        {
+            string nrPZ=nowaDostawa.nrPZ;
+            logInfo("dostawa [" + nrPZ + "] juz byla wprowadzona!");
+            }
 }
 
 dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
@@ -74,7 +78,9 @@ dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
     //wypiszTowary(tab_art, *n_art);
     if (plikOdczyt.good())
     {
-        getline(plikOdczyt, przyjetaDostawa.nrPZ);
+        string nrPZ;
+        getline(plikOdczyt, nrPZ);
+        strcpy(przyjetaDostawa.nrPZ, nrPZ.c_str());
         string PZilosc;
         getline(plikOdczyt, PZilosc);
         przyjetaDostawa.ilosc=stoi(PZilosc);
@@ -107,7 +113,8 @@ dostawa przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
 
 
 void wyswietlPZ(dostawa PZ){
-    if(PZ.nrPZ.empty()){
+    string nrPZ=PZ.nrPZ;
+    if(nrPZ.empty()){
     cout<<"Nie bylo jeszcze dostawy!"<<endl;
     return;
     }

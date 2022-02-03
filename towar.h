@@ -40,19 +40,28 @@ int dodajTowar(artykul *tab, int *n, artykul nowy){
     bool flaga=false;
     //cout<<*n<<endl;
     for(int i=0; i<*n; i++){
-            //cout<<"probuje dodac "<<nowy.nazwa<<" porownuje z "<<tab[i].nazwa<<endl;
-        if(strcmp(tab[i].nazwa,nowy.nazwa)!=0){
+        if(strcmp(tab[i].nazwa, nowy.nazwa)==0){
             tab[i].cena=nowy.cena;
             tab[i].ilosc+=nowy.ilosc;
             flaga=true;
+
             break;
         }
     }
-    if(flaga==false){
-        tab[*n]=nowy;
+    if(flaga==false)
+        {
+        cout<<flaga<<endl;
+        strcpy(tab[*n].nazwa, nowy.nazwa);
+        strcpy(tab[*n].kategoria, nowy.kategoria);
+        tab[*n].ilosc=nowy.ilosc;
+        tab[*n].cena=nowy.cena;
+        strcpy(tab[*n].miejsce, nowy.miejsce);
+        *n=(*n)+1;
+
     }
+        //cout<<tab[*n].nazwa<<","<<tab[*n].kategoria<<","<<tab[*n].ilosc<<","<<tab[*n].cena<<"\n";
     zapiszTowary(tab, *n, "data.bin");
-    return *n=(*n)+1;
+    return *n;
 }
 
 void wypiszTowary(artykul *tab, int n){
