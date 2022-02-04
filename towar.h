@@ -7,6 +7,7 @@
 #include <string>
 #include <iomanip>
 #include "log.h"
+#include "miejsce.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ struct artykul{
     char kategoria[20];
     int ilosc;
     float cena;
-    char miejsce[10];
+    miejsce miejsce;
     };
 
 void wczytajTowary(artykul *tab, int *n, string plik);
@@ -55,7 +56,7 @@ int dodajTowar(artykul *tab, int *n, artykul nowy){
         strcpy(tab[*n].kategoria, nowy.kategoria);
         tab[*n].ilosc=nowy.ilosc;
         tab[*n].cena=nowy.cena;
-        strcpy(tab[*n].miejsce, nowy.miejsce);
+        //tab[*n].miejsce, nowy.miejsce);
         *n=(*n)+1;
 
     }
