@@ -65,9 +65,7 @@ int dodajTowar(artykul *tab, int *n, artykul nowy){
 }
 
 void wypiszTowary(artykul *tab, int n){
-    //int el=sizeof(tab)/sizeof(artykul);
-    //cout<<el<<endl;
-    logInfo("wypisz towary");
+    //logInfo("wypisz towary");
     cout<<fixed;
     cout<<"L.p."<<"\t"<<"Nazwa"<<"\t"<<"Kategoria"<<"\t"<<"Ilosc"<<"\t"<<"Cena"<<endl;
     for(int i=0;i<n;i++)

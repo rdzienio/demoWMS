@@ -38,6 +38,7 @@ void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
             break;
         case 2:
             {
+            clearScreen();
             printHello();
             string plik;
             cout<<"Podaj nazwe pliku do wczytania: ";
@@ -61,7 +62,7 @@ void menuTowary(artykul *tab, int n){
     int wybor;
     clearScreen();
     while(true){
-        //clearScreen();
+        clearScreen();
         cout<<"Artykuly | ";
         printHello();
         cout<<"1) Stan magazynu."<<endl;
@@ -73,6 +74,7 @@ void menuTowary(artykul *tab, int n){
         switch(wybor){
         case 1:
             clearScreen();
+            printHello();
             wczytajTowary(tab, &n, "data.bin");
             wypiszTowary(tab, n);
             system("pause");
@@ -93,6 +95,7 @@ void menuTowary(artykul *tab, int n){
             }
         case 3:
             {
+                clearScreen();
                 printHello();
                 artykul test;
                 //cin.ignore(std::numeric_limits<std::streamsize>::max());
