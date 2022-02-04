@@ -1,3 +1,6 @@
+#ifndef _MAIN_H_
+#define _MAIN_H_
+
 #include <iostream>
 #include <windows.h>
 #include <limits>
@@ -26,6 +29,7 @@ void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
         switch(wybor){
         case 1:
             clearScreen();
+            printHello();
             wyswietlListeDostaw();
             //wyswietlPZ(testDostawy);
             //wypiszTowary(tab_art, n_art);
@@ -34,6 +38,7 @@ void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
             break;
         case 2:
             {
+            printHello();
             string plik;
             cout<<"Podaj nazwe pliku do wczytania: ";
             cin>>plik;
@@ -77,6 +82,7 @@ void menuTowary(artykul *tab, int n){
             {
                 clearScreen();
                 string plik;
+                printHello();
                 cout<<"Podaj nazwe pliku do wczytania: ";
                 cin>>plik;
                 wczytajTowary(tab, &n, plik);
@@ -87,6 +93,7 @@ void menuTowary(artykul *tab, int n){
             }
         case 3:
             {
+                printHello();
                 artykul test;
                 //cin.ignore(std::numeric_limits<std::streamsize>::max());
                 getchar();
@@ -109,6 +116,7 @@ void menuTowary(artykul *tab, int n){
         case 4:
             {
                 clearScreen();
+                printHello();
                 string plik;
                 cout<<"Podaj nazwe pliku do zapisania: ";
                 cin>>plik;
@@ -174,3 +182,5 @@ void clearScreen()
   /* Move the cursor home */
   SetConsoleCursorPosition( hStdOut, homeCoords );
   }
+
+  #endif // _MAIN_H_

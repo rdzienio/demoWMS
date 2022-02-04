@@ -4,8 +4,8 @@
 
 
 #include <iostream>
-
 #include "towar.h"
+#include "main.h"
 
 using namespace std;
 
@@ -44,7 +44,7 @@ bool sprawdzDostawe(char* nrPZ){ //czy byla wprowadzona
     return flaga;
 }
 void wyswietlListeDostaw(){
-    printHello();
+    //printHello();
     ifstream plikOdczyt;
     dostawa d[10];
     bool flaga=true;
@@ -107,7 +107,7 @@ void wczytajListeDostaw(dostawa *tab_dst, int *n){
 }*/
 
 void przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
-    printHello();
+    //printHello();
     wczytajTowary(tab_art, n_art, "data.bin");
     fstream plikOdczyt;
     dostawa przyjetaDostawa;
@@ -163,7 +163,7 @@ void przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
 
 
 void wyswietlPZ(dostawa PZ){
-    printHello();
+    //printHello();
     string nrPZ=PZ.nrPZ;
     if(nrPZ.empty() || PZ.ilosc<1){
     cout<<"Nie bylo jeszcze dostawy!"<<endl;
