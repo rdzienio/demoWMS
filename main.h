@@ -9,7 +9,6 @@ using namespace std;
 void printHello();
 void printMenu();
 void clearScreen();
-//int wybierzMenu(artykul *tab, int n, dostawa *tab_dst, int *n_dst);
 void menuTowary(artykul *tab, int n);
 void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst);
 
@@ -20,13 +19,14 @@ void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
     while(true){
         cout<<"Dostawy | ";
         printHello();
-        cout<<"1) Wyswietl dostawe."<<endl;
+        cout<<"1) Wyswietl liste dostaw."<<endl;
         cout<<"2) Przyjmij nowa dostawe."<<endl;
         cout<<"0) Powrot."<<endl;
         cin>>wybor;
         switch(wybor){
         case 1:
-            wyswietlListePrzyjetychDostaw();
+            clearScreen();
+            wyswietlListeDostaw();
             //wyswietlPZ(testDostawy);
             //wypiszTowary(tab_art, n_art);
             system("pause");
@@ -37,8 +37,7 @@ void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
             string plik;
             cout<<"Podaj nazwe pliku do wczytania: ";
             cin>>plik;
-            testDostawy=przyjmijDostawe(tab_art, &n_art, plik);
-            zapiszDostawe(testDostawy, tab_dst, n_dst);
+            przyjmijDostawe(tab_art, &n_art, plik);
             system("pause");
             clearScreen();
             break;
@@ -126,31 +125,6 @@ void menuTowary(artykul *tab, int n){
         }
     }
 }
-
-/*int wybierzMenu(artykul *tab, int n,  dostawa *tab_dst, int *n_dst){
-    int wybor;
-    while(true){
-        printMenu();
-        cin>>wybor;
-        clearScreen();
-        switch(wybor){
-            case 1:{
-                menuTowary(tab, n);
-                break;}
-            case 2:
-                menuDostawy(tab, n, tab_dst, n_dst);
-                break;
-            case 3:
-                cout<<"Brak wysylek"<<endl;
-                break;
-            case 0:
-                cout<<"Good bye!"<<endl;
-                return 0;
-            default:
-                continue;
-        }
-    }
-}*/
 
 void printHello(){
 cout<<"System wspomagajacy zarzadzanie magazynem WMS by RDzienio\n";
