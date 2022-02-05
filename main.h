@@ -31,8 +31,6 @@ void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
             clearScreen();
             printHello();
             wyswietlListeDostaw();
-            //wyswietlPZ(testDostawy);
-            //wypiszTowary(tab_art, n_art);
             system("pause");
             clearScreen();
             break;
@@ -98,7 +96,6 @@ void menuTowary(artykul *tab, int n){
                 clearScreen();
                 printHello();
                 artykul test;
-                //cin.ignore(std::numeric_limits<std::streamsize>::max());
                 getchar();
                 cout<<"Podaj nazwe towaru: ";
                 string nazwa;
@@ -110,6 +107,8 @@ void menuTowary(artykul *tab, int n){
                 cin>>test.cena;
                 cout<<"Podaj ilosc: ";
                 cin>>test.ilosc;
+                cout<<"Podaj ID miejsca";
+                cin>>test.miejsce.ID;
                 cout<<dodajTowar(tab, &n, test);
                 //zapiszTowary(tab, &n, "data.bin");
                 system("pause");
