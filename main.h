@@ -6,6 +6,7 @@
 #include <limits>
 #include "towar.h"
 #include "dostawa.h"
+#include "wysylka.h"
 
 using namespace std;
 
@@ -15,6 +16,45 @@ void clearScreen();
 void menuTowary(artykul *tab, int n);
 void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst);
 void menuWysylki(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst);
+
+void menuWysylki(artykul *tab_art, int n_art){
+    int wybor;
+    clearScreen();
+    while(true){
+        printHello();
+        cout<<"1) Wyswietl liste wysylek."<<endl;
+        cout<<"2) Przyjmij nowa wysylke."<<endl;
+        cout<<"0) Powrot."<<endl;
+        cin>>wybor;
+        switch(wybor){
+        case 1:
+            clearScreen();
+            printHello();
+            wyswietlListeWysylek();
+            system("pause");
+            clearScreen();
+            break;
+        case 2:
+            {
+            clearScreen();
+            printHello();
+            string plik;
+            cout<<"Podaj nazwe pliku WZ do wczytania: ";
+            cin>>plik;
+            wyslijWysylke(tab_art, &n_art, plik);
+            system("pause");
+            clearScreen();
+            break;
+            }
+        case 0:
+            clearScreen();
+            return;
+        default:
+            continue;
+
+        }
+    }
+}
 
 void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
     int wybor;
@@ -40,7 +80,7 @@ void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
             clearScreen();
             printHello();
             string plik;
-            cout<<"Podaj nazwe pliku do wczytania: ";
+            cout<<"Podaj nazwe pliku PZ do wczytania: ";
             cin>>plik;
             przyjmijDostawe(tab_art, &n_art, plik);
             system("pause");

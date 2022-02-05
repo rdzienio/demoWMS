@@ -22,7 +22,7 @@ int main(){
                 menuDostawy(lista, n, listaDostaw, &n_dst);
                 break;
             case 3:
-                cout<<"Brak wysylek"<<endl;
+                menuWysylki(lista, n);
                 break;
             case 0:
                 cout<<"Good bye!"<<endl;

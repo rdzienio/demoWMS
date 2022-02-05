@@ -26,6 +26,10 @@ void zapiszTowary(artykul *tab, int n, string plik);
 void edytujTowar(artykul *tab, int n);
 void zmienMiejsce(artykul *tab, int n);
 void usunTowar(int idx);
+void wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki);
+
+void wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki){
+}
 
 void usunTowar(int idx){
     string deleteline;

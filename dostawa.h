@@ -19,6 +19,7 @@ struct dostawa{
 void przyjmijDostawe(artykul *tab_art, int *n_art, string plik); //wczytuje plik z dostawa i dodaje ja na stan
 void wczytajListeDostaw(dostawa *tab_dst, int *n);
 bool sprawdzDostawe();
+void wyswietlListeDostaw();
 
 bool sprawdzDostawe(char* nrPZ){ //czy byla wprowadzona
     ifstream plikOdczyt;
