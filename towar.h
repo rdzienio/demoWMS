@@ -66,6 +66,7 @@ bool wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki){
                     {
                     tab_art[i].ilosc-=doWysylki.ilosc;
                     flaga=true;
+                    break;
                     }
                     else{
                         logInfo("Nie wystarczajaca ilosc towaru [" +nazwa + "dodaje do zamowienia!");
@@ -73,8 +74,8 @@ bool wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki){
                         generujZamowienie(doWysylki);
                         flaga=true;
                         zamowienie=true;
+                        break;
                     }
-                    break;
         }
     }
     if(flaga==false)
