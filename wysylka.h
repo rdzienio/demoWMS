@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef _WYSYLKA_H_
 #define _WYSYLKA_H_
 
@@ -66,6 +68,7 @@ void wyslijWysylke(artykul *tab_art, int *n_art, string plik){
     plikOdczyt.open(plik, ios::in| ios::app);
     cout<<setprecision(2);
     cout<<fixed;
+    bool flaga=false;
     if (plikOdczyt.good())
     {
         string nrWZ;
@@ -91,13 +94,19 @@ void wyslijWysylke(artykul *tab_art, int *n_art, string plik){
                 strcpy(nowaWZ.listaArt[i].kategoria, kategoria.c_str());
                 nowaWZ.listaArt[i].ilosc=stoi(ilosc);
                 nowaWZ.listaArt[i].cena=stod(cena);
-                wyslijTowar(tab_art, n_art, nowaWZ.listaArt[i]);
+                flaga=wyslijTowar(tab_art, n_art, nowaWZ.listaArt[i]);
             if (plikOdczyt.eof()) break;
             }
-        ofstream plikListaDostawy;
-        plikListaDostawy.open("wysylki.bin", ios::binary | ios::out| ios::app);
-        plikListaDostawy.write(reinterpret_cast<char*>(&nowaWZ), sizeof(nowaWZ));
-        plikListaDostawy.close();
+
+            if(flaga==false){
+                ofstream plikListaDostawy;
+                plikListaDostawy.open("wysylki.bin", ios::binary | ios::out| ios::app);
+                plikListaDostawy.write(reinterpret_cast<char*>(&nowaWZ), sizeof(nowaWZ));
+                plikListaDostawy.close();
+            }
+            else{
+                logInfo("Nie zrealizowano wysylki, bo sa niewystarczajace ilosci towaru. Wygenerowano nowe zamowienie!");
+            }
         }
         else
             cout<<"Bylo!"<<endl;

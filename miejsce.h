@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef _MIEJSCE_H_
 #define _MIEJSCE_H_
 
@@ -6,18 +8,18 @@
 #include <string>
 #include <sstream>
 
-using namespace std;
+//using namespace std;
 
 struct miejsce{
     char ID[10];
     int maxIlosc=999;
 };
 
-string generujNoweID(); //tworzymy ID wg wzorca, jesli E to paleta EURO a R to regal
+std::string generujNoweID(); //tworzymy ID wg wzorca, jesli E to paleta EURO a R to regal
 
-string generujNoweID(){
+std::string generujNoweID(){
     static int kolejnyNr=0;
-    stringstream ss;
+    std::stringstream ss;
     ss<<"BUFF"<<(kolejnyNr++);
     return ss.str();
 }

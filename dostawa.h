@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef _DOSTAWA_H_
 #define _DOSTAWA_H_
 

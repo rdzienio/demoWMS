@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
@@ -23,7 +25,7 @@ void menuWysylki(artykul *tab_art, int n_art){
     while(true){
         printHello();
         cout<<"1) Wyswietl liste wysylek."<<endl;
-        cout<<"2) Przyjmij nowa wysylke."<<endl;
+        cout<<"2) Zrealizuj nowa wysylke."<<endl;
         cout<<"0) Powrot."<<endl;
         cin>>wybor;
         switch(wybor){

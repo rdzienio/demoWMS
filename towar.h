@@ -1,5 +1,8 @@
+#pragma once
+
 #ifndef _TOWAR_H_
 #define _TOWAR_H_
+
 
 #include <iostream>
 #include <fstream>
@@ -8,6 +11,7 @@
 #include <iomanip>
 #include "log.h"
 #include "miejsce.h"
+//#include "dostawa.h"
 
 using namespace std;
 
@@ -26,9 +30,64 @@ void zapiszTowary(artykul *tab, int n, string plik);
 void edytujTowar(artykul *tab, int n);
 void zmienMiejsce(artykul *tab, int n);
 void usunTowar(int idx);
-void wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki);
+bool wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki);
+void generujZamowienie(artykul braki);
 
-void wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki){
+void generujZamowienie(artykul braki){
+    static int autoNr=1;
+    ifstream f("auto-zamowienie.txt");
+    if(f.good())
+    {   ofstream plikZapis;
+        plikZapis.open("AUTO-zamowienie.txt", ios::app);
+        plikZapis<<braki.nazwa<<","<<braki.kategoria<<","<<braki.ilosc<<","<<braki.cena<<"\n";
+        plikZapis.close();
+    }
+    else{
+        ofstream plikZapis;
+        stringstream ss;
+        ss<<"AUTO-ZAM-"<<(autoNr++);
+        plikZapis.open("AUTO-zamowienie.txt");
+        plikZapis<<ss.str()<<endl;;
+        plikZapis<<"<ilosc pozycji>"<<endl;
+        plikZapis<<braki.nazwa<<","<<braki.kategoria<<","<<braki.ilosc<<","<<braki.cena<<"\n";
+        plikZapis.close();
+    }
+}
+
+bool wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki){
+    string nazwa=doWysylki.nazwa;
+    logInfo("wyslano towar: " + nazwa);
+    bool flaga=false;
+    bool zamowienie=false; //0-nie generowano zamowienia; 1-wygenerowano
+    //cout<<*n<<endl;
+    for(int i=0; i<*n_art; i++){
+        if(strcmp(tab_art[i].nazwa, doWysylki.nazwa)==0){
+                if(tab_art[i].ilosc>=doWysylki.ilosc)
+                    {
+                    tab_art[i].ilosc-=doWysylki.ilosc;
+                    flaga=true;
+                    }
+                    else{
+                        logInfo("Nie wystarczajaca ilosc towaru [" +nazwa + "dodaje do zamowienia!");
+                        doWysylki.ilosc-=tab_art[i].ilosc;
+                        generujZamowienie(doWysylki);
+                        flaga=true;
+                        zamowienie=true;
+                    }
+                    break;
+        }
+    }
+    if(flaga==false)
+        {
+
+            logInfo("Nie ma takiego towaru [" +nazwa+ "dodaje do zamowienia!");
+            generujZamowienie(doWysylki);
+            zamowienie=true;
+
+    }
+    zapiszTowary(tab_art, *n_art, "data.bin");
+    return zamowienie;
+
 }
 
 void usunTowar(int idx){
