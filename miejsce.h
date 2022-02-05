@@ -13,7 +13,7 @@ struct miejsce{
     int maxIlosc=999;
 };
 
-string generujNoweID(char oldID); //tworzymy ID wg wzorca, jesli E to paleta EURO a R to regal
+string generujNoweID(); //tworzymy ID wg wzorca, jesli E to paleta EURO a R to regal
 
 string generujNoweID(){
     static int kolejnyNr=0;

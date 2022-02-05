@@ -14,13 +14,14 @@ void printMenu();
 void clearScreen();
 void menuTowary(artykul *tab, int n);
 void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst);
+void menuWysylki(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst);
 
 void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
     int wybor;
     dostawa testDostawy;
     clearScreen();
     while(true){
-        cout<<"Dostawy | ";
+        //cout<<"Dostawy | ";
         printHello();
         cout<<"1) Wyswietl liste dostaw."<<endl;
         cout<<"2) Przyjmij nowa dostawe."<<endl;
@@ -61,12 +62,15 @@ void menuTowary(artykul *tab, int n){
     clearScreen();
     while(true){
         clearScreen();
-        cout<<"Artykuly | ";
+        //cout<<"Artykuly | ";
         printHello();
         cout<<"1) Stan magazynu."<<endl;
-        cout<<"2) Wczytaj z pliku."<<endl;
+        cout<<"2) Wczytaj dane z pliku."<<endl;
         cout<<"3) Dodaj artykul."<<endl;
-        cout<<"4) Zapisz do pliku."<<endl;
+        cout<<"4) Zapisz dane do pliku."<<endl;
+        cout<<"5) Edytuj artykul."<<endl;
+        cout<<"6) Zmien miejsce artykulu."<<endl;
+        cout<<"7) Usun artykul."<<endl;
         cout<<"0) Powrot."<<endl;
         cin>>wybor;
         switch(wybor){
@@ -126,6 +130,24 @@ void menuTowary(artykul *tab, int n){
                 system("pause");
                 break;
             }
+        case 5:
+            clearScreen();
+            printHello();
+            edytujTowar(tab, n);
+            break;
+        case 6:
+            clearScreen();
+            printHello();
+            zmienMiejsce(tab, n);
+            break;
+        case 7:
+            wczytajTowary(tab, &n, "data.bin");
+            clearScreen();
+            wypiszTowary(tab, n);
+            int idx;
+            cout<<"Podaj nr pozycji do usuniecia: ";
+            cin>>idx;
+            usunTowar(idx);
         case 0:
             clearScreen();
             return;
@@ -137,7 +159,9 @@ void menuTowary(artykul *tab, int n){
 }
 
 void printHello(){
-cout<<"System wspomagajacy zarzadzanie magazynem WMS by RDzienio\n";
+cout<<"#############################################################\n";
+cout<<"# System wspomagajacy zarzadzanie magazynem WMS by RDzienio #\n";
+cout<<"#############################################################\n";
 }
 
 void printMenu(){

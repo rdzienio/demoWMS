@@ -23,6 +23,111 @@ void wczytajTowary(artykul *tab, int *n, string plik);
 void wypiszTowary(artykul *tab, int n);
 int dodajTowar(artykul *tab, int *n, artykul nowy);
 void zapiszTowary(artykul *tab, int n, string plik);
+void edytujTowar(artykul *tab, int n);
+void zmienMiejsce(artykul *tab, int n);
+void usunTowar(int idx);
+
+void usunTowar(int idx){
+    string deleteline;
+    string line;
+
+    ifstream fin;
+    fin.open("data.bin");
+    ofstream temp;
+    temp.open("temp.txt");
+    int i=0;
+    while (getline(fin, line))
+    {
+        //std::string id(line.begin(), line.begin() + line.find(" "));
+        if (idx!=i)
+            {temp << line << endl;}
+        i++;
+    }
+
+    temp.close();
+    fin.close();
+    remove("data.bin");
+    rename("temp.txt", "data.bin");
+}
+
+
+void zmienMiejsce(artykul *tab, int n){
+    wczytajTowary(tab, &n, "data.bin");
+    system("CLS");
+    wypiszTowary(tab, n);
+    //
+    //printHello();
+    int wybor;
+    cout<<"Wybierz nr pozycji do zmiany: ";
+    cin>>wybor;
+    for(int i=0; i<n; i++){
+        if(wybor==i){
+                getchar();
+                cout<<"Podaj nowa miejsce dla towaru: ";
+                string ID;
+                getline(cin, ID);
+                for(int j=0; j<n; j++){
+                    if(strcmp(tab[j].miejsce.ID, ID.c_str())==0 && strcmp(tab[j].nazwa, tab[i].nazwa)!=0){
+                        cout<<"Wybrane miejsce jest zajete przez inny towar!"<<endl;
+                        system("pause");
+                        return;
+                    }
+                    else if(strcmp(tab[j].miejsce.ID, ID.c_str())==0 && strcmp(tab[j].nazwa, tab[i].nazwa)==0){
+                            //cout<<"jestem tutaj!"<<endl;
+                        if(tab[j].miejsce.maxIlosc>=(tab[j].ilosc+tab[i].ilosc)){
+                            tab[j].ilosc+=tab[i].ilosc;
+                            zapiszTowary(tab, n, "data.bin");
+                            usunTowar(i);
+                            cout<<"Miejsce zostalo zaktualizowane!"<<endl;
+                            system("pause");
+                            return;
+                        }
+                        else{
+                            cout<<"Towar sie nie zmiesci w tym miejscu!"<<endl;
+                            system("pause");
+                            return;
+                        }
+                    }
+                }
+                strcpy(tab[i].miejsce.ID, ID.c_str());
+                cout<<"Podaj maksymalna ilosc towaru w tym miejscu: ";
+                cin>>tab[i].miejsce.maxIlosc;
+                cout<<"Artykul zaktualizowany!"<<endl;
+                zapiszTowary(tab, n, "data.bin");
+                break;
+        }
+    }
+    system("pause");
+
+}
+
+void edytujTowar(artykul *tab, int n){
+    wczytajTowary(tab, &n, "data.bin");
+    system("CLS");
+    wypiszTowary(tab, n);
+
+    //printHello();
+    int wybor;
+    cout<<"Wybierz nr artykulu do edycji: ";
+    cin>>wybor;
+    for(int i=0; i<n; i++){
+        if(wybor==i){
+                getchar();
+                cout<<"Podaj nowa nazwe towaru: ";
+                string nazwa;
+                getline(cin, nazwa);
+                strcpy(tab[i].nazwa, nazwa.c_str());
+                cout<<"Podaj nowa kategorie: ";
+                cin>>tab[i].kategoria;
+                cout<<"Podaj nowa cene: ";
+                cin>>tab[i].cena;
+                cout<<"Artykul zaktualizowany!"<<endl;
+                break;
+        }
+    }
+    system("pause");
+    zapiszTowary(tab, n, "data.bin");
+}
 
 void zapiszTowary(artykul *tab, int n, string plik){
     ofstream plikZapis;
