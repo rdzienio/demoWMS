@@ -105,7 +105,7 @@ void wyslijWysylke(artykul *tab_art, int *n_art, string plik){
                 plikListaDostawy.close();
             }
             else{
-                logInfo("Nie zrealizowano wysylki, bo sa niewystarczajace ilosci towaru. Wygenerowano nowe zamowienie!");
+                logInfo("Nie zrealizowano wysylki, bo sa niewystarczajace ilosci towaru!");
             }
         }
         else

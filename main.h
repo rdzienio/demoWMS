@@ -153,7 +153,9 @@ void menuTowary(artykul *tab, int n){
                 cin>>test.cena;
                 cout<<"Podaj ilosc: ";
                 cin>>test.ilosc;
-                cout<<"Podaj ID miejsca";
+                cout<<"Podaj ID miejsca: ";
+                //string ID;
+                //getline(cin, ID);
                 cin>>test.miejsce.ID;
                 cout<<dodajTowar(tab, &n, test);
                 //zapiszTowary(tab, &n, "data.bin");

@@ -39,55 +39,65 @@ void generujZamowienie(artykul braki){
     if(f.good())
     {   ofstream plikZapis;
         plikZapis.open("AUTO-zamowienie.txt", ios::app);
-        plikZapis<<braki.nazwa<<","<<braki.kategoria<<","<<braki.ilosc<<","<<braki.cena<<"\n";
+        plikZapis<<braki.miejsce.ID<<","<<braki.nazwa<<","<<braki.kategoria<<","<<braki.ilosc<<","<<braki.cena<<"\n";
         plikZapis.close();
     }
     else{
         ofstream plikZapis;
         stringstream ss;
-        ss<<"AUTO-ZAM-"<<(autoNr++);
+        ss<<"ZAM-TRANSPORTOWE"<<(autoNr++);
         plikZapis.open("AUTO-zamowienie.txt");
         plikZapis<<ss.str()<<endl;;
-        plikZapis<<"<ilosc pozycji>"<<endl;
-        plikZapis<<braki.nazwa<<","<<braki.kategoria<<","<<braki.ilosc<<","<<braki.cena<<"\n";
+        //plikZapis<<"<ilosc pozycji>"<<endl;
+        plikZapis<<braki.miejsce.ID<<","<<braki.nazwa<<","<<braki.kategoria<<","<<braki.ilosc<<","<<braki.cena<<"\n";
         plikZapis.close();
     }
 }
 
 bool wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki){
     string nazwa=doWysylki.nazwa;
-    logInfo("wyslano towar: " + nazwa);
+    //logInfo("wyslano towar: " + nazwa);
     bool flaga=false;
     bool zamowienie=false; //0-nie generowano zamowienia; 1-wygenerowano
     //cout<<*n<<endl;
     for(int i=0; i<*n_art; i++){
-        if(strcmp(tab_art[i].nazwa, doWysylki.nazwa)==0){
+        if(doWysylki.ilosc>0 && strcmp(tab_art[i].nazwa, doWysylki.nazwa)==0){
                 if(tab_art[i].ilosc>=doWysylki.ilosc)
                     {
                     tab_art[i].ilosc-=doWysylki.ilosc;
+                    strcpy(doWysylki.miejsce.ID,tab_art[i].miejsce.ID);
+                    generujZamowienie(doWysylki);
+                    string ID=doWysylki.miejsce.ID;
+                    logInfo("wyslano towar z miejsca: " + ID+ "\t" + to_string(doWysylki.ilosc));
                     flaga=true;
+                    zamowienie=true;
                     break;
                     }
                     else{
-                        logInfo("Nie wystarczajaca ilosc towaru [" +nazwa + "dodaje do zamowienia!");
+                        artykul tmp;
+                        strcpy(tmp.nazwa,doWysylki.nazwa);
+                        strcpy(tmp.kategoria,doWysylki.kategoria);
+                        tmp.cena=doWysylki.cena;
+                        tmp.ilosc=tab_art[i].ilosc;
                         doWysylki.ilosc-=tab_art[i].ilosc;
-                        generujZamowienie(doWysylki);
-                        flaga=true;
-                        zamowienie=true;
-                        break;
+                        tab_art[i].ilosc=0;
+                        strcpy(tmp.miejsce.ID,tab_art[i].miejsce.ID);
+                        generujZamowienie(tmp);
+                        string ID=tmp.miejsce.ID;
+                        logInfo("wyslano towar z miejsca: " + ID+ "\t" + to_string(tmp.ilosc));
                     }
         }
     }
     if(flaga==false)
         {
 
-            logInfo("Nie ma takiego towaru [" +nazwa+ "dodaje do zamowienia!");
-            generujZamowienie(doWysylki);
-            zamowienie=true;
+            logInfo("Nie ma takiego towaru [" +nazwa+ " lub jest go za malo!");
+            //generujZamowienie(doWysylki);
+            //zamowienie=true;
 
     }
     zapiszTowary(tab_art, *n_art, "data.bin");
-    return zamowienie;
+    return !zamowienie;
 
 }
 
