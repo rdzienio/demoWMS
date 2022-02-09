@@ -17,7 +17,7 @@ void logInfo(std::string napis){
     time_t czas;
     time( & czas );
     plikZapis.open("log.txt", std::fstream::app);
-    std::cout<<"#Info# "<<napis<<" @ "<<ctime( & czas )<<std::endl;
+    //std::cout<<"#Info# "<<napis<<" @ "<<ctime( & czas )<<std::endl;
     plikZapis<<"#Info# "<<napis<<" @ "<<ctime( & czas )<<std::endl;
     plikZapis.close();
 }

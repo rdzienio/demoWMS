@@ -1,5 +1,5 @@
 
-//projekt indywidualny by Robert Dzienio
+//projekt indywidualny WMS by Robert Dzienio
 #include "main.h"
 
 using namespace std;

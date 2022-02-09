@@ -256,11 +256,11 @@ int dodajTowar(artykul *tab, int *n, artykul nowy){
 }
 
 void wypiszTowary(artykul *tab, int n){
-    cout<<fixed;
-    cout<<"L.p."<<"\tMiejsce\t"<<"\t"<<"Nazwa"<<"\t"<<"Kategoria"<<"\t"<<"Ilosc"<<"\t"<<"Cena"<<endl;
+    //cout<< right << setfill(' ') << setw(3)<<"L.p."<<right << setfill(' ') << setw(10)<<"\tMiejsce\t"<<right<<setfill(' ')<<setw(30)<<"\t"<<"Nazwa"<<"\t"<<"Kategoria"<<"\t"<<"Ilosc"<<"\t"<<"Cena"<<endl;
+    cout<<right<<setfill(' ')<<setw(4)<<"L.p."<<left<<setfill(' ')<<setw(10)<<" Miejsce"<<left<<setfill(' ')<<setw(30)<<" Nazwa"<<left<<setfill(' ')<<setw(20)<<" Kategoria"<<left<<setfill(' ')<<setw(5)<<" Ilosc"<<left<<setfill(' ')<<setw(5)<<"   Cena"<<endl;
     for(int i=0;i<n;i++)
         {   if(strlen(tab[i].nazwa)==0) break;
-            cout<<i<<"\t"<<tab[i].miejsce.ID<<"\t"<<tab[i].nazwa<<"\t"<<tab[i].kategoria<<"\t"<<tab[i].ilosc<<"\t"<<tab[i].cena<<endl;}
+            cout<<right<<setfill(' ')<<setw(4)<<i<<" "<<left<<setfill(' ')<<setw(10)<<tab[i].miejsce.ID<<left<<setfill(' ')<<setw(30)<<tab[i].nazwa<<left<<setfill(' ')<<setw(20)<<tab[i].kategoria<<right<<setfill(' ')<<setw(5)<<tab[i].ilosc<<"  "<<right<<setfill(' ')<<setw(5)<<tab[i].cena<<endl;}
     cout<<endl;
 }
 
