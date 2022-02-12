@@ -11,7 +11,6 @@
 #include <iomanip>
 #include "log.h"
 #include "miejsce.h"
-//#include "dostawa.h"
 
 using namespace std;
 
@@ -48,7 +47,6 @@ void generujZamowienie(artykul braki){
         ss<<"ZAM-TRANSPORTOWE"<<(autoNr++);
         plikZapis.open("AUTO-zamowienie.txt");
         plikZapis<<ss.str()<<endl;;
-        //plikZapis<<"<ilosc pozycji>"<<endl;
         plikZapis<<braki.miejsce.ID<<","<<braki.nazwa<<","<<braki.kategoria<<","<<braki.ilosc<<","<<braki.cena<<"\n";
         plikZapis.close();
     }
@@ -56,10 +54,8 @@ void generujZamowienie(artykul braki){
 
 bool wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki){
     string nazwa=doWysylki.nazwa;
-    //logInfo("wyslano towar: " + nazwa);
     bool flaga=false;
     bool zamowienie=false; //0-nie generowano zamowienia; 1-wygenerowano
-    //cout<<*n<<endl;
     for(int i=0; i<*n_art; i++){
         if(doWysylki.ilosc>0 && strcmp(tab_art[i].nazwa, doWysylki.nazwa)==0){
                 if(tab_art[i].ilosc>=doWysylki.ilosc)
@@ -90,11 +86,7 @@ bool wyslijTowar(artykul *tab_art, int *n_art, artykul doWysylki){
     }
     if(flaga==false)
         {
-
             logInfo("Nie ma takiego towaru [" +nazwa+ " lub jest go za malo!");
-            //generujZamowienie(doWysylki);
-            //zamowienie=true;
-
     }
     zapiszTowary(tab_art, *n_art, "data.bin");
     return !zamowienie;
@@ -112,7 +104,6 @@ void usunTowar(int idx){
     int i=0;
     while (getline(fin, line))
     {
-        //std::string id(line.begin(), line.begin() + line.find(" "));
         if (idx!=i)
             {temp << line << endl;}
         i++;
@@ -129,8 +120,7 @@ void zmienMiejsce(artykul *tab, int n){
     wczytajTowary(tab, &n, "data.bin");
     system("CLS");
     wypiszTowary(tab, n);
-    //
-    //printHello();
+
     int wybor;
     cout<<"Wybierz nr pozycji do zmiany: ";
     cin>>wybor;
@@ -147,7 +137,6 @@ void zmienMiejsce(artykul *tab, int n){
                         return;
                     }
                     else if(strcmp(tab[j].miejsce.ID, ID.c_str())==0 && strcmp(tab[j].nazwa, tab[i].nazwa)==0){
-                            //cout<<"jestem tutaj!"<<endl;
                         if(tab[j].miejsce.maxIlosc>=(tab[j].ilosc+tab[i].ilosc)){
                             tab[j].ilosc+=tab[i].ilosc;
                             zapiszTowary(tab, n, "data.bin");
@@ -172,7 +161,6 @@ void zmienMiejsce(artykul *tab, int n){
         }
     }
     system("pause");
-
 }
 
 void edytujTowar(artykul *tab, int n){
@@ -180,7 +168,6 @@ void edytujTowar(artykul *tab, int n){
     system("CLS");
     wypiszTowary(tab, n);
 
-    //printHello();
     int wybor;
     cout<<"Wybierz nr artykulu do edycji: ";
     cin>>wybor;
@@ -218,7 +205,6 @@ int dodajTowar(artykul *tab, int *n, artykul nowy){
     string nazwa=nowy.nazwa;
     logInfo("dodano towar: " + nazwa);
     bool flaga=false;
-    //cout<<*n<<endl;
     for(int i=0; i<*n; i++){
         if(strcmp(tab[i].nazwa, nowy.nazwa)==0){
                 if(tab[i].miejsce.maxIlosc>nowy.ilosc+tab[i].ilosc)
@@ -241,12 +227,14 @@ int dodajTowar(artykul *tab, int *n, artykul nowy){
     }
     if(flaga==false)
         {
-        //cout<<flaga<<endl;
         strcpy(tab[*n].nazwa, nowy.nazwa);
         strcpy(tab[*n].kategoria, nowy.kategoria);
         tab[*n].ilosc=nowy.ilosc;
         tab[*n].cena=nowy.cena;
-        strcpy(tab[*n].miejsce.ID, nowy.miejsce.ID);
+        if(strcmp(nowy.miejsce.ID, "")==0)
+            strcpy(tab[*n].miejsce.ID, generujNoweID().c_str());
+        else
+            strcpy(tab[*n].miejsce.ID, nowy.miejsce.ID);
         tab[*n].miejsce.maxIlosc=nowy.miejsce.maxIlosc;
         *n=(*n)+1;
 
@@ -256,7 +244,6 @@ int dodajTowar(artykul *tab, int *n, artykul nowy){
 }
 
 void wypiszTowary(artykul *tab, int n){
-    //cout<< right << setfill(' ') << setw(3)<<"L.p."<<right << setfill(' ') << setw(10)<<"\tMiejsce\t"<<right<<setfill(' ')<<setw(30)<<"\t"<<"Nazwa"<<"\t"<<"Kategoria"<<"\t"<<"Ilosc"<<"\t"<<"Cena"<<endl;
     cout<<right<<setfill(' ')<<setw(4)<<"L.p."<<left<<setfill(' ')<<setw(10)<<" Miejsce"<<left<<setfill(' ')<<setw(30)<<" Nazwa"<<left<<setfill(' ')<<setw(20)<<" Kategoria"<<left<<setfill(' ')<<setw(5)<<" Ilosc"<<left<<setfill(' ')<<setw(5)<<"   Cena"<<endl;
     for(int i=0;i<n;i++)
         {   if(strlen(tab[i].nazwa)==0) break;
@@ -305,7 +292,6 @@ void wczytajTowary(artykul *tab, int *n, string plik){
         plikMiejsca<<tab[i].miejsce.ID<<","<<tab[i].miejsce.maxIlosc<<"\n";
     }
     plikMiejsca.close();
-
 }
 
 

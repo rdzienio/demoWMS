@@ -60,10 +60,9 @@ void menuWysylki(artykul *tab_art, int n_art){
 
 void menuDostawy(artykul *tab_art, int n_art, dostawa *tab_dst, int *n_dst){
     int wybor;
-    dostawa testDostawy;
+    //dostawa testDostawy;
     clearScreen();
     while(true){
-        //cout<<"Dostawy | ";
         printHello();
         cout<<"1) Wyswietl liste dostaw."<<endl;
         cout<<"2) Przyjmij nowa dostawe."<<endl;
@@ -104,7 +103,6 @@ void menuTowary(artykul *tab, int n){
     clearScreen();
     while(true){
         clearScreen();
-        //cout<<"Artykuly | ";
         printHello();
         cout<<"1) Stan magazynu."<<endl;
         cout<<"2) Wczytaj dane z pliku."<<endl;
@@ -154,11 +152,8 @@ void menuTowary(artykul *tab, int n){
                 cout<<"Podaj ilosc: ";
                 cin>>test.ilosc;
                 cout<<"Podaj ID miejsca: ";
-                //string ID;
-                //getline(cin, ID);
                 cin>>test.miejsce.ID;
-                cout<<dodajTowar(tab, &n, test);
-                //zapiszTowary(tab, &n, "data.bin");
+                dodajTowar(tab, &n, test);
                 system("pause");
                 clearScreen();
                 break;
@@ -205,7 +200,7 @@ void menuTowary(artykul *tab, int n){
 void printHello(){
 cout<<"#############################################################\n";
 cout<<"# System wspomagajacy zarzadzanie magazynem WMS by RDzienio #\n";
-cout<<"#############################################################\n";
+cout<<"#############################################################\n\n";
 }
 
 void printMenu(){

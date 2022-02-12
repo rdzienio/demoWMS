@@ -19,7 +19,6 @@ struct dostawa{
     };
 
 void przyjmijDostawe(artykul *tab_art, int *n_art, string plik); //wczytuje plik z dostawa i dodaje ja na stan
-void wczytajListeDostaw(dostawa *tab_dst, int *n);
 bool sprawdzDostawe();
 void wyswietlListeDostaw();
 
@@ -47,7 +46,7 @@ bool sprawdzDostawe(char* nrPZ){ //czy byla wprowadzona
 void wyswietlListeDostaw(){
     ifstream plikOdczyt;
     dostawa d[10];
-    bool flaga=true;
+    //bool flaga=true;
     plikOdczyt.open("dostawy.bin", ios::binary | ios::in);
     if(plikOdczyt.good()==true){
         int i;
@@ -56,27 +55,10 @@ void wyswietlListeDostaw(){
             plikOdczyt.read(reinterpret_cast<char*>(&d[i]),sizeof(d[i]));
             if(plikOdczyt.eof()) break;
             cout<<i<<") Nr PZ: "<<d[i].nrPZ<<endl;
-
         }
     }
     else
         cout<<"Brak dostaw!"<<endl;
-    plikOdczyt.close();
-}
-
-
-void wczytajListeDostaw(dostawa *tab_dst, int *n){
-    ifstream plikOdczyt;
-    plikOdczyt.open("dostawy.bin", ios::binary | ios::in);
-    if(plikOdczyt.good()==true){
-        logInfo("wczytano dostawy");
-        int i;
-        for(i=0; ;i++){
-            plikOdczyt.read(reinterpret_cast<char*>(&tab_dst[i]),sizeof(tab_dst));
-            if(plikOdczyt.eof()) break;
-        }
-        *n=i;
-    }
     plikOdczyt.close();
 }
 

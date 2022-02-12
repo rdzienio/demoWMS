@@ -10,6 +10,7 @@ int main(){
     artykul *lista=new artykul[n];
     dostawa *listaDostaw= new dostawa[n_dst];
     int wybor;
+    system("chcp 1250>>null");
     while(true){
         printMenu();
         cin>>wybor;
@@ -26,13 +27,12 @@ int main(){
                 break;
             case 0:
                 cout<<"Good bye!"<<endl;
+
+    delete listaDostaw;
+    delete lista;
                 return 0;
             default:
                 continue;
         }
     }
-    n_dst=50;
-
-    delete listaDostaw;
-    delete lista;
 }

@@ -43,7 +43,7 @@ bool sprawdzWysylke(char* nrWZ){
 void wyswietlListeWysylek(){
     ifstream plikOdczyt;
     wysylka d[10];
-    bool flaga=true;
+    //bool flaga=true;
     plikOdczyt.open("wysylki.bin", ios::binary | ios::in);
     if(plikOdczyt.good()==true){
         int i;
@@ -52,11 +52,10 @@ void wyswietlListeWysylek(){
             plikOdczyt.read(reinterpret_cast<char*>(&d[i]),sizeof(d[i]));
             if(plikOdczyt.eof()) break;
             cout<<i<<") Nr WZ: "<<d[i].nrWZ<<endl;
-
         }
     }
     else
-        cout<<"Brak dostaw!"<<endl;
+        cout<<"Brak wysylek!"<<endl;
     plikOdczyt.close();
 }
 
@@ -105,7 +104,7 @@ void wyslijWysylke(artykul *tab_art, int *n_art, string plik){
                 plikListaDostawy.close();
             }
             else{
-                logInfo("Nie zrealizowano wysylki, bo sa niewystarczajace ilosci towaru!");
+                cout<<"Nie zrealizowano wysylki, bo nie ma niewystarczajacej ilosci towaru!";
             }
         }
         else
