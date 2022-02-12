@@ -95,6 +95,7 @@ void przyjmijDostawe(artykul *tab_art, int *n_art, string plik){
                 strcpy(przyjetaDostawa.listaArt[i].kategoria, kategoria.c_str());
                 przyjetaDostawa.listaArt[i].ilosc=stoi(ilosc);
                 przyjetaDostawa.listaArt[i].cena=stod(cena);
+                strcpy(przyjetaDostawa.listaArt[i].miejsce.ID, generujNoweID().c_str());
                 dodajTowar(tab_art, n_art, przyjetaDostawa.listaArt[i]);
             if (plikOdczyt.eof()) break;
             }
